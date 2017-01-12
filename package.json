@@ -1,0 +1,27 @@
+{
+    "name": "snowfight.io",
+    "version": "1.0.0",
+    "description": "Build forts and throw snowballs at each other",
+    "main": "app.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "snow",
+        "fight",
+        "snowfight",
+        "io"
+    ],
+    "author": "eyeoh.io",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.14.0",
+        "socket.io": "^1.4.8"
+    },
+    "engines": {
+        "node": "4.4.7"
+    },
+    "scripts": {
+      "start": "node server/server.js"
+    }
+}

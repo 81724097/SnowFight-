@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+        <title>Snowfight.io Server</title>
+        <style type="text/css">
+            html {
+                background-color: #000;
+            }
+            body {
+                font-family: "Lucida Console";
+                font-size: 13px;
+                color: #0f0;
+            }
+            #title,#out,#in {
+                display: block;
+                position: fixed;
+                width: 100%;
+                padding: 8px;
+                color: #0f0;
+                background-color: #000;
+                left: 0;
+           }
+            #title {
+                top: 0;
+                z-index: 2;
+            }
+            #out {
+                border-color: #fff;
+                border-width: 1px 0 0 0;
+                top: 6em;
+                bottom: 32px;
+            }
+            #in {
+                bottom: 0;
+                border-color: #fff;
+                border-width: 1px 0 0 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="title">
+            <h1>Server Console</h1>
+        </div>
+        <textarea id="out" disabled="true" width="100%"></textarea>
+        <input id="in" tabindex="0"/>
+    </body>
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+        var socket = io();
+        console.log("loaded socket");
+        socket.on('console',function(data) {
+            receiveOutput(data);
+        });
+
+        var textbox = document.getElementById('in');
+        var output = document.getElementById('out');
+        var logs = [];
+        console.log("retreived input output");
+        textbox.addEventListener('keyup',function(e) {
+            if (e.keyCode === 13) {
+                sendCommand();
+            }
+        });
+
+        function sendCommand() {
+            console.log("Sending command: " + textbox.value);
+            socket.emit('console',textbox.value);
+            textbox.value = "";
+        }
+
+        function receiveOutput(data) {
+            console.log(data);
+            logs.push("> " + data[0]);
+            updateOutput();
+        }
+
+        function updateOutput() {
+            var text = "";
+            for (var i = 0; i < logs.length; i++) {
+                text += logs[i] + '\n';
+            }
+            text = text.trim();
+            output.value = text;
+            output.scrollTop = output.scrollHeight;
+        }
+    </script>
+</html>

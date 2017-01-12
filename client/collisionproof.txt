@@ -1,0 +1,24 @@
+& is the direction from which the sprite collided into another
+rt is the total radius of the two sprites
+x1,y1 is of the incoming sprite, x2,y2 is of the stationary sprite
+
+z is the distance that the incoming sprite must be moved back in the -& direct ion
+
+starting equation: rt = sqrt((x1 - x2 + zcos(-&))^2 + (y1 - y2 + zsin(-&))^2)
+the total radius is equivalent to the distance between 2 circles when they are tangent.
+and since we are moving the sprite back a distance of z. The change in x is going to be equal
+to zcos(-&), and the change in y is likewise going to be equivalent to zsin(-&).
+Therefore the new distance is going to be sqrt((x1 - x2 + zcos(-&))^2 + (y1 - y2 + zsin(-&))^2)
+which we wish to set equivalent to rt in order to express that it will be tangent to each other
+after the translation.
+we must solve for z, all others are constants.
+
+rt^2 = (x1 - x2 + zcos(& + pi))^2 + (y1 - y2 + zsin(& + pi))^2
+rt^2 = (x1 - x2)^2 + 2(x1 - x2)zcos(& + pi) + z^2cos^2(& + pi) + (y1 - y2)^2 + 2(y1-y2)zsin(& + pi) + z^2sin^2(& + pi)
+
+rt^2 - (x1 - x2)^2 - (y1 - y2)^2 = 1 + 2(x1 - x2)zcos(& + pi) + 2(y1 - y2)zsin(& + pi)
+((rt^2 - (x1 - x2)^2 - (y1 - y2)^2 - 1)/2) = z((x1 - x2)cos(& + pi) + (y1 - y2)sin(& + pi))
+((rt^2 - (x1 - x2)^2 - (y1 - y2)^2 - 1) / 2) / ((x1 - x2)cos(& + pi) + (y1 - y2)sin(& + pi)) = z
+
+z = ((rt^2 - (x1 - x2)^2 - (y1 - y2)^2 - 1) / 2) / ((x1 - x2)cos(& + pi) + (y1 - y2)sin(& + pi))
+
